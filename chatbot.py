@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from google import genai
+import google.generativeai as genai
 
 api_key = st.secrets["gemini"]["google_api_key"]
 client = genai.Client(api_key=api_key)
