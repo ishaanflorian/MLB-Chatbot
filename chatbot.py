@@ -1,9 +1,14 @@
 import streamlit as st
 import pandas as pd
+# from google import genai
+# from google.genai import types
 import google.generativeai as genai
 
+
 api_key = st.secrets["gemini"]["google_api_key"]
-client = genai.Client(api_key=api_key)
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel(model_name="gemini-1.5-flash")  # or gemini-1.5-pro
+
 
 # response = client.models.generate_content(
 #     model='gemini-2.0-flash-001', contents='Why is the sky blue?'
@@ -25,9 +30,10 @@ question = st.text_area("Enter text to chat")
 if question:
     st.write("Thanks for asking the question!")
     system_instructions=f"You are {role}"
-    # response = client.chat.completions.create(model = "gpt-3.5-turbo",
-    response = client.models.generate_content(
-    model='gemini-2.0-flash-001', contents=f"Act like this {role} and i want you to  answer this {question}")
+    prompt = f"Act like this {role} and i want you to  answer this {question}"
+    response = model.generate_content(prompt)
+    # response = client.models.generate_content(
+    # model='gemini-2.0-flash-001', contents=f"Act like this {role} and i want you to  answer this {question}")
 
     # print(response.text)
     st.write(response.text)
