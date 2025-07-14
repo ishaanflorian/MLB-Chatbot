@@ -41,7 +41,7 @@ if question:
     prompt = f"Act like this {role} and i want you to  answer this {question}"
     response = model.generate_content(prompt)
     st.write(response.text)
-    audio_stream = elevenlabs.text_to_speech.stream(
+    audio_stream = elevenlabs.text_to_speech.generate(
         text=response.text,
         voice_id="JBFqnCBsd6RMkjVDRZzb",
         model_id="eleven_multilingual_v2"
